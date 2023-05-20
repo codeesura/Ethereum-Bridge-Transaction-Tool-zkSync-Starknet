@@ -79,4 +79,4 @@ This project uses the [MIT License](https://github.com/codeesura/Ethereum-Bridge
 
 ## Contact
 
-If you want to contact the developers, you can reach out at [codeesura@gmail.com](mailto:codeesura@gmail.com).
+If you want to contact me, you can reach out at [codeesura@gmail.com](mailto:codeesura@gmail.com).
