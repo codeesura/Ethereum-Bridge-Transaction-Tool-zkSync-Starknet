@@ -15,7 +15,7 @@ const addresses = {
 const abiData = JSON.parse(fs.readFileSync('./ABI/abi_data.json', 'utf8'));
 
 const CHAIN_ID = 1;
-const provider = new ethers.providers.JsonRpcProvider('https://ethereum-mainnet-rpc.allthatnode.com');
+const provider = new ethers.providers.JsonRpcProvider('https://ethereum.publicnode.com');
 const PrivateKey_ = process.env.PRIVATE_KEY;
 const Wallet_ = new ethers.Wallet(PrivateKey_,provider);
 const zkSyncBridgeContract_ABI = abiData.zkSyncBridgeContract_ABI;
