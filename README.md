@@ -21,7 +21,7 @@ git clone https://github.com/codeesura/ethereum-bridge-transaction-tool-zksync-s
 2. Navigate to the project directory:
 
 ```
-cd ethereum-bridge-transaction-tool
+cd ethereum-bridge-transaction-tool-zksync-starknet
 ```
 
 3. Install the dependencies:
