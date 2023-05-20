@@ -1,0 +1,21 @@
+{
+  "name": "ethereum-bridge-transaction-tool-zksync-starknet",
+  "version": "1.0.0",
+  "description": "A simple command line tool to make transactions through Ethereum layer 2 scaling solutions, zkSync and StarkNet, using flashbots.",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/codeesura/ethereum-bridge-transaction-tool-zksync-starknet.git"
+  },
+  "author": "codeesura <codeesura@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^2.4.2",
+    "dotenv": "^16.0.3",
+    "ethers": "^5.7.2",
+    "@flashbots/ethers-provider-bundle": "^0.6.2"
+  }
+}
