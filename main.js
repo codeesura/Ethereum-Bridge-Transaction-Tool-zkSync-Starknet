@@ -82,7 +82,7 @@ async function main() {
             
             if (resolution === FlashbotsBundleResolution.BundleIncluded) {
               console.log(`Congrats, included in ${blockNumber + 1}`);
-              exit(0);
+              process.exit(0);
             }
 
             if ('error' in flashbotsTransactionResponse) {
@@ -100,6 +100,7 @@ async function main() {
                     transaction: {
                         chainId: CHAIN_ID,
                         to:addresses.StarknetBridgeAddress,
+                        value:((value_ETH).add(ethers.utils.parseEther("0.000000000000001"))), // less fee bug !! 
                         data: StarknetBridgeInterface.encodeFunctionData("deposit(uint256,uint256)",[
                             value_ETH,
                             Starknet_Wallet.toString()
@@ -120,7 +121,7 @@ async function main() {
               
               if (resolution === FlashbotsBundleResolution.BundleIncluded) {
                 console.log(`Congrats, included in ${blockNumber + 1}`);
-                exit(0);
+                process.exit(0);
               }
   
               if ('error' in flashbotsTransactionResponse) {
