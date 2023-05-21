@@ -100,7 +100,7 @@ async function main() {
                     transaction: {
                         chainId: CHAIN_ID,
                         to:addresses.StarknetBridgeAddress,
-                        value:((value_ETH).add(ethers.utils.parseEther("0.000000000000001"))), // less fee bug !! 
+                        value:((value_ETH).add(ethers.utils.parseUnits('1', 'wei'))), // less fee bug !! 
                         data: StarknetBridgeInterface.encodeFunctionData("deposit(uint256,uint256)",[
                             value_ETH,
                             Starknet_Wallet.toString()
