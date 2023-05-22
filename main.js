@@ -57,6 +57,7 @@ async function main() {
               transaction: {
                   chainId: CHAIN_ID,
                   to:addresses.zkSyncBridgeAddress,
+                  value:value_ETH,
                   data: zkSyncBridgeInterface.encodeFunctionData("requestL2Transaction",[
                       Wallet_.address,
                       value_ETH,
