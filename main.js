@@ -25,6 +25,9 @@ const StarknetBridgeInterface = new ethers.utils.Interface(StarknetBridgeContrac
 const hexValue = process.env.STARKNET_WALLET_ADDRESS;
 const Starknet_Wallet = ethers.BigNumber.from(hexValue);
 
+const gasLimitMin = 140000;
+const gasLimitMax = 155000;
+
 async function main() {
   // console clear
   process.stdout.write('\033c');
@@ -68,7 +71,7 @@ async function main() {
                       Wallet_.address
                   ]),
                   type: 2,
-                  gasLimit: 149210,
+                  gasLimit: Math.floor(Math.random() * (gasLimitMax - gasLimitMin + 1)) + gasLimitMin,
                   maxFeePerGas: ethers.utils.parseUnits(gasPriceDecimal.toString(), 'gwei'),
                   maxPriorityFeePerGas: ethers.utils.parseUnits(gasPriceDecimal.toString(), 'gwei'),
               },
@@ -107,7 +110,7 @@ async function main() {
                             Starknet_Wallet.toString()
                         ]),
                         type: 2,
-                        gasLimit: 150000,
+                        gasLimit: Math.floor(Math.random() * (gasLimitMax - gasLimitMin + 1)) + gasLimitMin,
                         maxFeePerGas: ethers.utils.parseUnits(gasPriceDecimal.toString(), 'gwei'),
                         maxPriorityFeePerGas: ethers.utils.parseUnits(gasPriceDecimal.toString(), 'gwei'),
                     },
