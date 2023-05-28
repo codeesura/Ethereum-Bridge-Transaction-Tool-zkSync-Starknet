@@ -60,7 +60,7 @@ async function main() {
               transaction: {
                   chainId: CHAIN_ID,
                   to:addresses.zkSyncBridgeAddress,
-                  value:value_ETH,
+                  value: ((value_ETH).add(ethers.utils.parseUnits('0.0003712815', 'ether'))),
                   data: zkSyncBridgeInterface.encodeFunctionData("requestL2Transaction",[
                       Wallet_.address,
                       value_ETH,
