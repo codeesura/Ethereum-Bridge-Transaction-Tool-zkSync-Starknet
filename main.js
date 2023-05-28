@@ -65,7 +65,7 @@ async function main() {
                       Wallet_.address,
                       value_ETH,
                       '0x00',
-                      750150,
+                      742563,
                       800,
                       [],
                       Wallet_.address
