@@ -55,25 +55,27 @@ async function main() {
         const gasPriceDecimal = ((parseInt(gasPrice.toString()) / 1000000000) + 0.85).toFixed(8);
         if (bridge === 'zksync') {
           try {
+            base_fee = ethers.utils.parseUnits(gasPriceDecimal.toString(), 'gwei');
+            calculate_zk_fee = ((((17 * base_fee.toNumber())+799)/800) * 243884) / 10**18; 
             const bundle_zksync = [
             {
               transaction: {
                   chainId: CHAIN_ID,
                   to:addresses.zkSyncBridgeAddress,
-                  value: ((value_ETH).add(ethers.utils.parseUnits('0.0003712815', 'ether'))), // Max 23.5 gwei 
+                  value: ((value_ETH).add(ethers.utils.parseUnits(calculate_zk_fee.toFixed(18), 'ether'))), // Max 23.5 gwei 
                   data: zkSyncBridgeInterface.encodeFunctionData("requestL2Transaction",[
                       Wallet_.address,
                       value_ETH,
                       '0x00',
-                      742563,
+                      243884,
                       800,
                       [],
                       Wallet_.address
                   ]),
                   type: 2,
                   gasLimit: Math.floor(Math.random() * (gasLimitMax - gasLimitMin + 1)) + gasLimitMin,
-                  maxFeePerGas: ethers.utils.parseUnits(gasPriceDecimal.toString(), 'gwei'),
-                  maxPriorityFeePerGas: ethers.utils.parseUnits(gasPriceDecimal.toString(), 'gwei'),
+                  maxFeePerGas: base_fee,
+                  maxPriorityFeePerGas: base_fee,
               },
               signer: Wallet_ 
             }]
