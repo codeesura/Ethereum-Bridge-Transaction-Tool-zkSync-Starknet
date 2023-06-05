@@ -52,7 +52,7 @@ async function main() {
       
       provider.on('block', async (blockNumber) => {
         const gasPrice = await provider.getGasPrice();
-        const gasPriceDecimal = ((parseInt(gasPrice.toString()) / 1000000000) + 0.85).toFixed(8);
+        const gasPriceDecimal = ((parseInt(gasPrice.toString()) / 1000000000)).toFixed(8);
         if (bridge === 'zksync') {
           try {
             base_fee = ethers.utils.parseUnits(gasPriceDecimal.toString(), 'gwei');
