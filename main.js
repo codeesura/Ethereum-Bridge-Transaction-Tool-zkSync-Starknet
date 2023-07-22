@@ -51,12 +51,16 @@ async function main() {
       const flashbotsProvider = await FlashbotsBundleProvider.create(provider, ethers.Wallet.createRandom())
       
       provider.on('block', async (blockNumber) => {
+        let calculate_zk_fee;
         const gasPrice = await provider.getGasPrice();
         const gasPriceDecimal = ((parseInt(gasPrice.toString()) / 1000000000)).toFixed(8);
         if (bridge === 'zksync') {
           try {
             base_fee = ethers.utils.parseUnits(gasPriceDecimal.toString(), 'gwei');
-            calculate_zk_fee = ((((17 * base_fee.toNumber())+799)/800) * 243884) / 10**18; 
+            calculate_zk_fee = (((((17 * base_fee.toNumber())+799)/800) * 243884) / 10**18);
+            if (calculate_zk_fee < 0.000121942) {
+              calculate_zk_fee = 0.000121942;
+            }
             const bundle_zksync = [
             {
               transaction: {
