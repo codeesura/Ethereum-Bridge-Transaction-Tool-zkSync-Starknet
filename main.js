@@ -61,15 +61,21 @@ async function main() {
             if (calculate_zk_fee < 0.000121942) {
               calculate_zk_fee = 0.000121942;
             }
+
+            const totalBalance = await Wallet_.getBalance();
+            const gaslimit = Math.floor(Math.random() * (gasLimitMax - gasLimitMin + 1)) + gasLimitMin;
+            const spendGas = base_fee.mul(gaslimit);
+            const reelValue = totalBalance.sub(spendGas).sub(ethers.utils.parseUnits(calculate_zk_fee.toFixed(18), 'ether'));
+
             const bundle_zksync = [
             {
               transaction: {
                   chainId: CHAIN_ID,
                   to:addresses.zkSyncBridgeAddress,
-                  value: ((value_ETH).add(ethers.utils.parseUnits(calculate_zk_fee.toFixed(18), 'ether'))), // Max 23.5 gwei 
+                  value: totalBalance.sub(spendGas), // total value - gas
                   data: zkSyncBridgeInterface.encodeFunctionData("requestL2Transaction",[
                       Wallet_.address,
-                      value_ETH,
+                      reelValue, // total value - gas - zkbridge fee
                       '0x00',
                       243884,
                       800,
@@ -77,7 +83,7 @@ async function main() {
                       Wallet_.address
                   ]),
                   type: 2,
-                  gasLimit: Math.floor(Math.random() * (gasLimitMax - gasLimitMin + 1)) + gasLimitMin,
+                  gasLimit: gaslimit,
                   maxFeePerGas: base_fee,
                   maxPriorityFeePerGas: base_fee,
               },
@@ -91,7 +97,7 @@ async function main() {
             console.log(await flashbotsTransactionResponse.simulate());
             
             if (resolution === FlashbotsBundleResolution.BundleIncluded) {
-              console.log(`Congrats, included in ${blockNumber + 1}`);
+              console.log(chalk.green(`Congrats, included in ${blockNumber + 1}. Transaction Hash: https://etherscan.io/tx/${flashbotsTransactionResponse.bundleHash}`));
               process.exit(0);
             }
 
